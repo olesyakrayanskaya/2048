@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 
@@ -8,16 +9,12 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: './dist',
+        // contentBase: './dist',
+        port: 8080
     },
     watch: true,
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
-
-    output: {
-        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
@@ -27,6 +24,7 @@ module.exports = {
             template: '../src/index.html',
             filename: 'index.html'
         }),
+        new CleanWebpackPlugin(),
     ],
 
     module: {

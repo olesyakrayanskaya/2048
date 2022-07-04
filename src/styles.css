@@ -1,0 +1,10 @@
+body {
+    background-color: #faf8ef;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: aqua;
+}
