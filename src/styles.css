@@ -1,10 +1,120 @@
 body {
     background-color: #faf8ef;
+    font-family: "Ubuntu", sans-serif;  
+    color: #776E7B;  
+}
+
+a,
+a:visited,
+a:hover {
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
 }
 
 .container {
     max-width: 700px;
     margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 5px 20px;
+}
+
+.header__inner-1,
+.header__inner-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header__title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.header__game-rules {
+    display: block;
+    margin-top: 10px;
+}
+
+.header__score,
+.header__best {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #faf8ef;
+    background-color: #b5b2b7;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.header__btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
     padding: 10px;
-    background-color: aqua;
+    color: #4b4b48;
+    background-color: #a59e84;
+    font-size: 16px;
+    transition: background-color 1s, color 1s;
+}
+
+.header__btn:hover {
+    background-color: #a37d6e;
+    color: #faf8ef;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.main__field {
+    display: grid;
+    background-color: #BBADA0;
+    border-radius: 5px;
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(5, 60px);
+    grid-gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+    width: 360px;
+    padding: 10px 0;
+    margin: 0 auto;
+}
+
+.field__item {
+    background-color: #CDC1B4;
+    border-radius: 5px;
+    font-size: 40px;
+    font-weight: 700;
+    color: #7e7975;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number {
+    display: block;
+}
+
+.main__description {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.main__newgame {
+    display: block;
+    margin-bottom: 20px;
 }
