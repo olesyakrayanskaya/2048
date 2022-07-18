@@ -27,20 +27,21 @@ document.addEventListener('keydown', function (event) {
     switch (event.code) {
 
         case 'ArrowUp':
-            console.log('up');
-            break;
+            console.log('up')
+            break
         case 'ArrowDown':
-            console.log('down');
-            break;
+            console.log('down')
+            break
         case 'ArrowRight':
-            console.log('right');
-            break;
+            console.log('right')
+            break
         case 'ArrowLeft':
-            console.log('left');
-            break;
+            console.log('left')
+            moveLeft()
+            break
 
         default:
-            return;
+            return
 
     }
 
@@ -78,9 +79,26 @@ function generateNewItem() {
 }
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min)) + min
 }
+
+function moveLeft() {
+    for (let i = 0; i < gameSize; i++) {
+        let moveToIndex = 0
+        for (let j = 1; j < gameSize; j++) {
+            }
+        }
+    }
+
+function get(i, j) {
+    return elements[i][j].innerHTML
+}
+
+function set(i, j, value) {
+    elements[i][j].innerHTML = value
+}
+
 
 
