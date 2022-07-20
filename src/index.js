@@ -84,14 +84,6 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min
 }
 
-function moveLeft() {
-    for (let i = 0; i < gameSize; i++) {
-        let moveToIndex = 0
-        for (let j = 1; j < gameSize; j++) {
-            }
-        }
-    }
-
 function get(i, j) {
     return elements[i][j].innerHTML
 }
@@ -99,6 +91,40 @@ function get(i, j) {
 function set(i, j, value) {
     elements[i][j].innerHTML = value
 }
+
+function moveLeft() {
+    for (let i = 0; i < gameSize; i++) {
+        let moveFromIndex = 1
+        let moveToIndex = 0
+        while(moveFromIndex < gameSize) {
+            if (moveFromIndex <= moveToIndex) {
+                moveFromIndex = moveToIndex + 1;
+                continue
+            }
+
+            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
+                set(i, moveToIndex, get(i, moveToIndex) * 2)
+                set(i, moveFromIndex, '')
+                moveFromIndex++
+                moveToIndex++;
+                continue
+            }
+            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
+                set(i, moveToIndex, get(i, moveFromIndex))
+                set(i, moveFromIndex, '')
+                moveToIndex++;
+                continue
+            }
+            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
+                moveToIndex++
+                continue
+            }
+            moveFromIndex++
+        }
+    }
+}
+
+
 
 
 
