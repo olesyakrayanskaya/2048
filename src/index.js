@@ -34,6 +34,7 @@ document.addEventListener('keydown', function (event) {
             break
         case 'ArrowRight':
             console.log('right')
+            moveRight()
             break
         case 'ArrowLeft':
             console.log('left')
@@ -120,6 +121,38 @@ function moveLeft() {
                 continue
             }
             moveFromIndex++
+        }
+    }
+}
+
+function moveRight() {
+    for (let i = 0; i < gameSize; i++) {
+        let moveFromIndex = gameSize - 2
+        let moveToIndex = gameSize - 1
+        while(moveFromIndex >= 0) {
+            if (moveFromIndex >= moveToIndex) {
+                moveFromIndex = moveToIndex - 1;
+                continue
+            }
+
+            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
+                set(i, moveToIndex, get(i, moveToIndex) * 2)
+                set(i, moveFromIndex, '')
+                moveFromIndex--
+                moveToIndex--;
+                continue
+            }
+            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
+                set(i, moveToIndex, get(i, moveFromIndex))
+                set(i, moveFromIndex, '')
+                moveToIndex--;
+                continue
+            }
+            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
+                moveToIndex--
+                continue
+            }
+            moveFromIndex--
         }
     }
 }
