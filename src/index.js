@@ -28,9 +28,11 @@ document.addEventListener('keydown', function (event) {
 
         case 'ArrowUp':
             console.log('up')
+            moveUp()
             break
         case 'ArrowDown':
             console.log('down')
+            moveDown()
             break
         case 'ArrowRight':
             console.log('right')
@@ -55,7 +57,7 @@ function generateNewItem() {
 
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (elements[i][j].getInnerHTML() == '') {
+            if (elements[i][j].innerHTML == '') {
                 count++
             }
         }
@@ -67,7 +69,7 @@ function generateNewItem() {
 
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (elements[i][j].getInnerHTML() == '') {
+            if (elements[i][j].innerHTML == '') {
                 if (rundomPosition == 0) {
                     elements[i][j].innerHTML = rundomItemInner
                     return
@@ -97,7 +99,7 @@ function moveLeft() {
     for (let i = 0; i < gameSize; i++) {
         let moveFromIndex = 1
         let moveToIndex = 0
-        while(moveFromIndex < gameSize) {
+        while (moveFromIndex < gameSize) {
             if (moveFromIndex <= moveToIndex) {
                 moveFromIndex = moveToIndex + 1;
                 continue
@@ -129,7 +131,7 @@ function moveRight() {
     for (let i = 0; i < gameSize; i++) {
         let moveFromIndex = gameSize - 2
         let moveToIndex = gameSize - 1
-        while(moveFromIndex >= 0) {
+        while (moveFromIndex >= 0) {
             if (moveFromIndex >= moveToIndex) {
                 moveFromIndex = moveToIndex - 1;
                 continue
@@ -153,6 +155,70 @@ function moveRight() {
                 continue
             }
             moveFromIndex--
+        }
+    }
+}
+
+function moveDown() {
+    for (let j = 0; j < gameSize; j++) {
+        let moveFromIndex = gameSize - 2
+        let moveToIndex = gameSize - 1
+        while (moveFromIndex >= 0) {
+            if (moveFromIndex >= moveToIndex) {
+                moveFromIndex = moveToIndex - 1;
+                continue
+            }
+
+            if (get(moveToIndex, j) != '' && get(moveToIndex, j) == get(moveFromIndex, j)) {
+                set(moveToIndex, j, get(moveToIndex, j) * 2)
+                set(moveFromIndex, j, '')
+                moveFromIndex--
+                moveToIndex--;
+                continue
+            }
+            if (get(moveToIndex, j) == '' && get(moveFromIndex, j) != '') {
+                set(moveToIndex, j, get(moveFromIndex, j))
+                set(moveFromIndex, j, '')
+                moveToIndex--;
+                continue
+            }
+            if (get(moveToIndex, j) != '' && get(moveFromIndex, j) != '') {
+                moveToIndex--
+                continue
+            }
+            moveFromIndex--
+        }
+    }
+}
+
+function moveUp() {
+    for (let j = 0; j < gameSize; j++) {
+        let moveFromIndex = 1
+        let moveToIndex = 0
+        while (moveFromIndex < gameSize) {
+            if (moveFromIndex <= moveToIndex) {
+                moveFromIndex = moveToIndex + 1;
+                continue
+            }
+
+            if (get(moveToIndex, j) != '' && get(moveToIndex, j) == get(moveFromIndex, j)) {
+                set(moveToIndex, j, get(moveToIndex, j) * 2)
+                set(moveFromIndex, j, '')
+                moveFromIndex++
+                moveToIndex++;
+                continue
+            }
+            if (get(moveToIndex, j) == '' && get(moveFromIndex, j) != '') {
+                set(moveToIndex, j, get(moveFromIndex, j))
+                set(moveFromIndex, j, '')
+                moveToIndex++;
+                continue
+            }
+            if (get(moveToIndex, j) != '' && get(moveFromIndex, j) != '') {
+                moveToIndex++
+                continue
+            }
+            moveFromIndex++
         }
     }
 }
