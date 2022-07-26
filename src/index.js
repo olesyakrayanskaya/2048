@@ -27,19 +27,15 @@ document.addEventListener('keydown', function (event) {
     switch (event.code) {
 
         case 'ArrowUp':
-            console.log('up')
             moveUp()
             break
         case 'ArrowDown':
-            console.log('down')
             moveDown()
             break
         case 'ArrowRight':
-            console.log('right')
             moveRight()
             break
         case 'ArrowLeft':
-            console.log('left')
             moveLeft()
             break
 
@@ -87,143 +83,85 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min
 }
 
-function get(i, j) {
-    return elements[i][j].innerHTML
-}
+function move(get, set) {
+    for (let i = 0; i < gameSize; i++) {
+        let moveFromIndex = 1
+        let moveToIndex = 0
+        while (moveFromIndex < gameSize) {
+            if (moveFromIndex <= moveToIndex) {
+                moveFromIndex = moveToIndex + 1;
+                continue
+            }
 
-function set(i, j, value) {
-    elements[i][j].innerHTML = value
+            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
+                set(i, moveToIndex, get(i, moveToIndex) * 2)
+                set(i, moveFromIndex, '')
+                moveFromIndex++
+                moveToIndex++;
+                continue
+            }
+            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
+                set(i, moveToIndex, get(i, moveFromIndex))
+                set(i, moveFromIndex, '')
+                moveFromIndex++;
+                continue
+            }
+            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
+                moveToIndex++
+                continue
+            }
+            moveFromIndex++
+        }
+    }
 }
 
 function moveLeft() {
-    for (let i = 0; i < gameSize; i++) {
-        let moveFromIndex = 1
-        let moveToIndex = 0
-        while (moveFromIndex < gameSize) {
-            if (moveFromIndex <= moveToIndex) {
-                moveFromIndex = moveToIndex + 1;
-                continue
-            }
-
-            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
-                set(i, moveToIndex, get(i, moveToIndex) * 2)
-                set(i, moveFromIndex, '')
-                moveFromIndex++
-                moveToIndex++;
-                continue
-            }
-            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
-                set(i, moveToIndex, get(i, moveFromIndex))
-                set(i, moveFromIndex, '')
-                moveToIndex++;
-                continue
-            }
-            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
-                moveToIndex++
-                continue
-            }
-            moveFromIndex++
-        }
-    }
+    move(getLeft, setLeft)
 }
+
+function getLeft(i, j) {
+    return elements[i][j].innerHTML
+}
+
+function setLeft(i, j, value) {
+    elements[i][j].innerHTML = value
+}
+
 
 function moveRight() {
-    for (let i = 0; i < gameSize; i++) {
-        let moveFromIndex = gameSize - 2
-        let moveToIndex = gameSize - 1
-        while (moveFromIndex >= 0) {
-            if (moveFromIndex >= moveToIndex) {
-                moveFromIndex = moveToIndex - 1;
-                continue
-            }
-
-            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
-                set(i, moveToIndex, get(i, moveToIndex) * 2)
-                set(i, moveFromIndex, '')
-                moveFromIndex--
-                moveToIndex--;
-                continue
-            }
-            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
-                set(i, moveToIndex, get(i, moveFromIndex))
-                set(i, moveFromIndex, '')
-                moveToIndex--;
-                continue
-            }
-            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
-                moveToIndex--
-                continue
-            }
-            moveFromIndex--
-        }
-    }
+    move(getRight, setRight)
 }
 
-function moveDown() {
-    for (let j = 0; j < gameSize; j++) {
-        let moveFromIndex = gameSize - 2
-        let moveToIndex = gameSize - 1
-        while (moveFromIndex >= 0) {
-            if (moveFromIndex >= moveToIndex) {
-                moveFromIndex = moveToIndex - 1;
-                continue
-            }
-
-            if (get(moveToIndex, j) != '' && get(moveToIndex, j) == get(moveFromIndex, j)) {
-                set(moveToIndex, j, get(moveToIndex, j) * 2)
-                set(moveFromIndex, j, '')
-                moveFromIndex--
-                moveToIndex--;
-                continue
-            }
-            if (get(moveToIndex, j) == '' && get(moveFromIndex, j) != '') {
-                set(moveToIndex, j, get(moveFromIndex, j))
-                set(moveFromIndex, j, '')
-                moveToIndex--;
-                continue
-            }
-            if (get(moveToIndex, j) != '' && get(moveFromIndex, j) != '') {
-                moveToIndex--
-                continue
-            }
-            moveFromIndex--
-        }
-    }
+function getRight(i, j) {
+    return elements[i][gameSize - j - 1].innerHTML
 }
+
+function setRight(i, j, value) {
+    elements[i][gameSize - j - 1].innerHTML = value
+}
+
 
 function moveUp() {
-    for (let j = 0; j < gameSize; j++) {
-        let moveFromIndex = 1
-        let moveToIndex = 0
-        while (moveFromIndex < gameSize) {
-            if (moveFromIndex <= moveToIndex) {
-                moveFromIndex = moveToIndex + 1;
-                continue
-            }
+    move(getUp, setUp)
+}
 
-            if (get(moveToIndex, j) != '' && get(moveToIndex, j) == get(moveFromIndex, j)) {
-                set(moveToIndex, j, get(moveToIndex, j) * 2)
-                set(moveFromIndex, j, '')
-                moveFromIndex++
-                moveToIndex++;
-                continue
-            }
-            if (get(moveToIndex, j) == '' && get(moveFromIndex, j) != '') {
-                set(moveToIndex, j, get(moveFromIndex, j))
-                set(moveFromIndex, j, '')
-                moveToIndex++;
-                continue
-            }
-            if (get(moveToIndex, j) != '' && get(moveFromIndex, j) != '') {
-                moveToIndex++
-                continue
-            }
-            moveFromIndex++
-        }
-    }
+function getUp(i, j) {
+    return elements[j][i].innerHTML
+}
+
+function setUp(i, j, value) {
+    elements[j][i].innerHTML = value
 }
 
 
+function moveDown() {
+    move(getDown, setDown)
+}
 
+function getDown(i, j) {
+    return elements[gameSize - j - 1][i].innerHTML
+}
 
-
+function setDown(i, j, value) {
+    elements[gameSize - j - 1][i].innerHTML = value
+}
