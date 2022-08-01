@@ -24,7 +24,12 @@ a:hover {
     cursor: pointer;
     display: block;
     font-weight: 700;
+    outline: transparent;
 }
+
+button {
+    outline: transparent;
+}    
 
 .container {
     max-width: 760px;

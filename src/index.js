@@ -3,6 +3,7 @@ import './styles.css'
 const gameField = document.getElementById('game__field')
 const gameSize = 5
 const elements = []
+const newGame = document.getElementById('new__game')
 
 function addElement() {
 
@@ -165,3 +166,19 @@ function getDown(i, j) {
 function setDown(i, j, value) {
     elements[gameSize - j - 1][i].innerHTML = value
 }
+
+function set(i, j, value) {
+    elements[i][j].innerHTML = value
+    return elements
+}
+
+function clearGameField() {
+    for (let i = 0; i < gameSize; i++) {
+        for (let j = 0; j < gameSize; j++) {
+            set(i, j, '')
+        }
+    }
+}
+
+newGame.addEventListener('click', clearGameField)
+newGame.addEventListener('keydown', clearGameField)
