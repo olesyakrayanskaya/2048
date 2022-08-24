@@ -4,6 +4,13 @@ const gameField = document.getElementById('game__field')
 const gameSize = 5
 const elements = []
 const newGame = document.getElementById('new__game')
+const scoreHTML = document.getElementById('score__field')
+const bestHTML = document.getElementById('best__field')
+const startGame = document.getElementById('start__game')
+let score = 0
+
+scoreHTML.innerHTML = 0
+bestHTML.innerHTML = 0
 
 function addElement() {
 
@@ -90,21 +97,23 @@ function move(get, set) {
         let moveToIndex = 0
         while (moveFromIndex < gameSize) {
             if (moveFromIndex <= moveToIndex) {
-                moveFromIndex = moveToIndex + 1;
+                moveFromIndex = moveToIndex + 1
                 continue
             }
 
             if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
                 set(i, moveToIndex, get(i, moveToIndex) * 2)
                 set(i, moveFromIndex, '')
+                score += Number(get(i, moveToIndex))
+                scoreHTML.innerHTML = score
                 moveFromIndex++
-                moveToIndex++;
+                moveToIndex++
                 continue
             }
             if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
                 set(i, moveToIndex, get(i, moveFromIndex))
                 set(i, moveFromIndex, '')
-                moveFromIndex++;
+                moveFromIndex++
                 continue
             }
             if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
@@ -114,6 +123,7 @@ function move(get, set) {
             moveFromIndex++
         }
     }
+    if (gameOver()) { alert('Game Over!') }
 }
 
 function moveLeft() {
@@ -172,13 +182,43 @@ function set(i, j, value) {
     return elements
 }
 
-function clearGameField() {
+function get(i, j) {
+    return elements[i][j].innerHTML
+}
+
+function newGameField() {
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
             set(i, j, '')
         }
     }
+    scoreHTML.innerHTML = 0
 }
 
-newGame.addEventListener('click', clearGameField)
-newGame.addEventListener('keydown', clearGameField)
+function gameOver() {
+    for (let i = 0; i < gameSize; i++) {
+        for (let j = 0; j < gameSize; j++) {
+            if (get(i, j) == '') { return false }
+        }
+    }
+    for (let i = 0; i < gameSize; i++) {
+        for (let j = 1; j < gameSize - 1; j++) {
+            if (get(i, j) == get(i, j + 1) || get(i, j) == get(i, j - 1)) { return false }
+        }
+    }
+    for (let i = 1; i < gameSize - 1; i++) {
+        for (let j = 0; j < gameSize; j++) {
+            if (get(i, j) == get(i + 1 , j) || get(i, j) == get(i - 1, j)) { return false }
+        }
+    }
+    return true
+}
+
+newGame.addEventListener('click', newGameField)
+newGame.addEventListener('keydown', newGameField)
+startGame.addEventListener('click', newGameField)
+startGame.addEventListener('keydown', newGameField)
+
+
+
+
