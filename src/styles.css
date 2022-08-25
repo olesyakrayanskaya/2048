@@ -144,11 +144,6 @@ button {
     text-align: center;
 }
 
-.main__newgame {
-    display: block;
-    margin-bottom: 20px;
-}
-
 @media (max-width: 515px) {
     .main__field {
         grid-template-columns: repeat(5, 55px);
@@ -319,10 +314,6 @@ button {
 
     .main__description {
         margin: 60px 0;
-    }
-
-    .main__newgame {
-        margin-bottom: 40px;
     }
 }
 

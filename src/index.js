@@ -6,11 +6,13 @@ const elements = []
 const newGame = document.getElementById('new__game')
 const scoreHTML = document.getElementById('score__field')
 const bestHTML = document.getElementById('best__field')
-const startGame = document.getElementById('start__game')
 let score = 0
-
-scoreHTML.innerHTML = 0
-bestHTML.innerHTML = 0
+let best = 0
+if (Number(localStorage.getItem('bestScore')) > 0) {
+    best = Number(localStorage.getItem('bestScore'))
+}
+scoreHTML.innerHTML = score
+bestHTML.innerHTML = best
 
 function addElement() {
 
@@ -52,7 +54,7 @@ document.addEventListener('keydown', function (event) {
 
     }
 
-    generateNewItem()
+    setTimeout(generateNewItem, 200)
 })
 
 function generateNewItem() {
@@ -61,7 +63,7 @@ function generateNewItem() {
 
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (elements[i][j].innerHTML == '') {
+            if (get(i, j) == '') {
                 count++
             }
         }
@@ -73,9 +75,9 @@ function generateNewItem() {
 
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (elements[i][j].innerHTML == '') {
+            if (get(i, j) == '') {
                 if (rundomPosition == 0) {
-                    elements[i][j].innerHTML = rundomItemInner
+                    set(i, j, rundomItemInner)
                     return
                 }
                 rundomPosition--
@@ -123,7 +125,15 @@ function move(get, set) {
             moveFromIndex++
         }
     }
-    if (gameOver()) { alert('Game Over!') }
+    if (gameOver()) {
+        alert('Game Over!')
+        bestResScore()
+    }
+    if (win()) {
+        alert('You are win!')
+        let winName = prompt('your name', 'name')
+        bestResScore()
+    }
 }
 
 function moveLeft() {
@@ -192,6 +202,8 @@ function newGameField() {
             set(i, j, '')
         }
     }
+    generateNewItem()
+    generateNewItem()
     scoreHTML.innerHTML = 0
 }
 
@@ -208,16 +220,27 @@ function gameOver() {
     }
     for (let i = 1; i < gameSize - 1; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (get(i, j) == get(i + 1 , j) || get(i, j) == get(i - 1, j)) { return false }
+            if (get(i, j) == get(i + 1, j) || get(i, j) == get(i - 1, j)) { return false }
         }
     }
     return true
 }
 
+function win() {
+    for (let i = 0; i < gameSize; i++) {
+        for (let j = 0; j < gameSize; j++) {
+            if (get(i, j) >= 2048) { return true }
+        }
+    }
+}
+
+function bestResScore() {
+    if (best < score) { localStorage.setItem('bestScore', score) }
+}
+
 newGame.addEventListener('click', newGameField)
 newGame.addEventListener('keydown', newGameField)
-startGame.addEventListener('click', newGameField)
-startGame.addEventListener('keydown', newGameField)
+
 
 
 
