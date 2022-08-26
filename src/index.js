@@ -8,6 +8,10 @@ const scoreHTML = document.getElementById('score__field')
 const bestHTML = document.getElementById('best__field')
 let score = 0
 let best = 0
+let isGameStarted = false
+let dateStart
+let startTime
+let objectWin = { name: '', time: 0 }
 if (Number(localStorage.getItem('bestScore')) > 0) {
     best = Number(localStorage.getItem('bestScore'))
 }
@@ -33,28 +37,29 @@ for (let i = 0; i < gameSize; i++) {
 }
 
 document.addEventListener('keydown', function (event) {
+    if (isGameStarted) {
+        switch (event.code) {
 
-    switch (event.code) {
+            case 'ArrowUp':
+                moveUp()
+                break
+            case 'ArrowDown':
+                moveDown()
+                break
+            case 'ArrowRight':
+                moveRight()
+                break
+            case 'ArrowLeft':
+                moveLeft()
+                break
 
-        case 'ArrowUp':
-            moveUp()
-            break
-        case 'ArrowDown':
-            moveDown()
-            break
-        case 'ArrowRight':
-            moveRight()
-            break
-        case 'ArrowLeft':
-            moveLeft()
-            break
+            default:
+                return
 
-        default:
-            return
+        }
 
+        setTimeout(generateNewItem, 200)
     }
-
-    setTimeout(generateNewItem, 200)
 })
 
 function generateNewItem() {
@@ -94,45 +99,57 @@ function getRandomInt(min, max) {
 }
 
 function move(get, set) {
-    for (let i = 0; i < gameSize; i++) {
-        let moveFromIndex = 1
-        let moveToIndex = 0
-        while (moveFromIndex < gameSize) {
-            if (moveFromIndex <= moveToIndex) {
-                moveFromIndex = moveToIndex + 1
-                continue
-            }
+    if (isGameStarted) {
+        for (let i = 0; i < gameSize; i++) {
+            let moveFromIndex = 1
+            let moveToIndex = 0
+            while (moveFromIndex < gameSize) {
+                if (moveFromIndex <= moveToIndex) {
+                    moveFromIndex = moveToIndex + 1
+                    continue
+                }
 
-            if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
-                set(i, moveToIndex, get(i, moveToIndex) * 2)
-                set(i, moveFromIndex, '')
-                score += Number(get(i, moveToIndex))
-                scoreHTML.innerHTML = score
+                if (get(i, moveToIndex) != '' && get(i, moveToIndex) == get(i, moveFromIndex)) {
+                    set(i, moveToIndex, get(i, moveToIndex) * 2)
+                    set(i, moveFromIndex, '')
+                    score += Number(get(i, moveToIndex))
+                    scoreHTML.innerHTML = score
+                    moveFromIndex++
+                    moveToIndex++
+                    continue
+                }
+                if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
+                    set(i, moveToIndex, get(i, moveFromIndex))
+                    set(i, moveFromIndex, '')
+                    moveFromIndex++
+                    continue
+                }
+                if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
+                    moveToIndex++
+                    continue
+                }
                 moveFromIndex++
-                moveToIndex++
-                continue
             }
-            if (get(i, moveToIndex) == '' && get(i, moveFromIndex) != '') {
-                set(i, moveToIndex, get(i, moveFromIndex))
-                set(i, moveFromIndex, '')
-                moveFromIndex++
-                continue
-            }
-            if (get(i, moveToIndex) != '' && get(i, moveFromIndex) != '') {
-                moveToIndex++
-                continue
-            }
-            moveFromIndex++
         }
-    }
-    if (gameOver()) {
-        alert('Game Over!')
-        bestResScore()
-    }
-    if (win()) {
-        alert('You are win!')
-        let winName = prompt('your name', 'name')
-        bestResScore()
+        if (gameOver()) {
+            alert('Game Over!')
+            bestResScore()
+        }
+        if (win()) {
+            alert('You are win!')
+            let winName = prompt('your name', 'name')
+            objectWin.name = winName
+            bestResScore()
+            let dateWin = new Date()
+            let endTime = dateWin.getMilliseconds()
+            let timeWin = endTime - startTime
+            objectWin.time = timeWin
+            localStorage.setItem(objectWin, JSON.stringify(objectWin))
+            let obj = JSON.parse(localStorage.getItem(objectWin))
+            console.log(obj)
+            console.log(endTime)
+            console.log(startTime)
+        }
     }
 }
 
@@ -205,6 +222,9 @@ function newGameField() {
     generateNewItem()
     generateNewItem()
     scoreHTML.innerHTML = 0
+    isGameStarted = true
+    dateStart = new Date()
+    startTime = dateStart.getMilliseconds()
 }
 
 function gameOver() {
@@ -229,7 +249,7 @@ function gameOver() {
 function win() {
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (get(i, j) >= 2048) { return true }
+            if (get(i, j) == 16) { return true }
         }
     }
 }
@@ -239,7 +259,6 @@ function bestResScore() {
 }
 
 newGame.addEventListener('click', newGameField)
-newGame.addEventListener('keydown', newGameField)
 
 
 
