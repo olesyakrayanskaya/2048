@@ -11,7 +11,6 @@ let best = 0
 let isGameStarted = false
 let dateStart
 let startTime
-const objectWin = { name: '', time: 0 }
 if (Number(localStorage.getItem('bestScore')) > 0) {
     best = Number(localStorage.getItem('bestScore'))
 }
@@ -138,7 +137,6 @@ function move(get, set) {
         if (win()) {
             alert('You are win!')
             bestResScore()
-            winTime()
             resWinner()
         }
     }
@@ -235,6 +233,7 @@ function gameOver() {
         }
     }
     return true
+    isGameStarted = false
 }
 
 function win() {
@@ -250,21 +249,24 @@ function bestResScore() {
 }
 
 function winTime() {
+    const objectWin = { name: '', time: 0 }
     let winName = prompt('your name', 'name')
     objectWin.name = winName
     let dateWin = new Date()
     let endTime = dateWin.getTime()
     let timeWin = endTime - startTime
     objectWin.time = timeWin
-    localStorage.setItem(objectWin, JSON.stringify(objectWin))
+    isGameStarted = false
+    return objectWin
 }
 
 function resWinner() {
-    const objWinner = JSON.parse(localStorage.getItem(objectWin))
-    const arrWinner = Object.values(objWinner)
-    let arrayWinners = []
-    arrayWinners.push(arrWinner)
-    localStorage.setItem(arrayWinners, JSON.stringify(arrayWinners))
+    const objWinner = winTime()
+    let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
+    if (arrayWinners == null) {arrayWinners = []}
+    arrayWinners.push(objWinner)
+    arrayWinners.sort((a, b) => a.time - b.time)
+    localStorage.setItem('arrayWinners', JSON.stringify(arrayWinners))
 }
 
 newGame.addEventListener('click', newGameField)
