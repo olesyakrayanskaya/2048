@@ -142,7 +142,7 @@ button {
 .field__item {
     background-color: #cdc1b4;
     border-radius: 5px;
-    font-size: 50px;
+    font-size: 60px;
     font-weight: 700;
     color: #7e7975;
     display: flex;
@@ -155,7 +155,7 @@ button {
     text-align: center;
 }
 
-@media (max-width: 1000px) and (orientation: landscape) {
+@media (max-width: 700px) and (orientation: landscape) {
     .container {
         max-width: 580px;
         flex-wrap: nowrap;
@@ -189,16 +189,16 @@ button {
     }
 
     .main__field {
-        grid-template-columns: repeat(5, 35px);
-        grid-template-rows: repeat(5, 35px);
+        grid-template-columns: repeat(5, 40px);
+        grid-template-rows: repeat(5, 40px);
         grid-gap: 7px;
-        width: 225px;
-        height: 225px;
+        width: 250px;
+        height: 250px;
         margin-left: 20px;
     }
 
     .field__item {
-        font-size: 16px;
+        font-size: 30px;
     }
 }
 
@@ -212,7 +212,7 @@ button {
     }
 
     .field__item {
-        font-size: 35px;
+        font-size: 38px;
     }
 
     .header__title {
@@ -242,7 +242,7 @@ button {
     }
 
     .field__item {
-        font-size: 30px;
+        font-size: 35px;
     }
 
     .header__title {
@@ -254,169 +254,3 @@ button {
     }
 }
 
-
-/* @media (max-width: 370px) {
-    .container {
-        width: 100%;
-    }
-
-    .header {
-        flex-direction: column;
-    }
-
-    .header__inner-1 {
-        margin-right: 10px;
-    }
-
-    .header__inner-2 {
-        flex-wrap: nowrap;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .header__score,
-    .header__best {
-        width: 80px;
-        height: 80px;
-        margin: 0;
-    }
-
-    .header__best {
-        margin-left: 20px;
-    }
-
-    .main {
-        margin: 0;
-    }
-
-    .main__field {
-        grid-template-columns: repeat(5, 45px);
-        grid-template-rows: repeat(5, 45px);
-        grid-gap: 5px;
-        width: 255px;
-        padding: 5px 0;
-    }
-
-    .field__item {
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 1300px) {
-    body {
-        font-size: 24px;
-    }
-
-    .container {
-        max-width: 900px;
-    }
-
-    .header__score,
-    .header__best {
-        font-size: 24px;
-        padding: 10px;
-    }
-
-    .header__btn {
-        font-size: 20px;
-    }
-
-    .main__field {
-        grid-template-columns: repeat(5, 80px);
-        grid-template-rows: repeat(5, 80px);
-        grid-gap: 15px;
-        width: 485px;
-        padding: 10px 0;
-    }
-
-    .field__item {
-        font-size: 50px;
-    }
-}
-
-@media (min-width: 1700px) {
-    body {
-        font-size: 30px;
-    }
-
-    .header {
-        margin: 50px 0;
-        padding: 10px 40px;
-    }
-
-    .header__score,
-    .header__best {
-        font-size: 30px;
-        width: 170px;
-        height: 170px;
-    }
-
-    .header__btn {
-        font-size: 26px;
-        max-width: 400px;
-    }
-
-    .main__description {
-        margin: 40px 0;
-    }
-}
-
-@media (min-width: 1900px) {
-    body {
-        font-size: 32px;
-    }
-
-    .container {
-        max-width: 60%;
-    }
-
-    .header {
-        margin: 5% 0;
-    }
-
-    .header__title {
-        font-size: 80px;
-    }
-
-    .header__game-rules {
-        margin-top: 30px;
-    }
-
-    .header__score,
-    .header__best {
-        font-size: 40px;
-        padding: 20px;
-    }
-
-    .header__btn {
-        padding: 20px;
-        font-size: 40px;
-    }
-
-    .main {
-        margin: 80px 0 60px;
-    }
-
-    .main__field {
-        grid-template-columns: repeat(5, 120px);
-        grid-template-rows: repeat(5, 120px);
-        grid-gap: 20px;
-        width: 710px;
-        padding: 15px 10px;
-        margin: 40px auto;
-    }
-
-    .field__item {
-        font-size: 60px;
-    }
-
-    .main__description {
-        margin: 60px 0;
-    }
-}
-
-@media (min-width: 2400px) {
-    body {
-        font-size: 40px;
-    }
-} */
