@@ -13,31 +13,36 @@
 </head>
 
 <body>
+    <div class="play-rules" id="how_to_play">
+        <div class="play-rules__window">
+            <div class="play-rules__close" id="how_to_play_close">&times;</div>
+            <p class="play-rules__text">КАК ИГРАТЬ: Используйте клавиши-стрелки на клавиатуре, мышь
+                или сенсорное управление смартфона для перемещения плитки. Плитки с одинаковым номером сливаются в одну
+                при соприкосновении. Соединяйте их, чтобы набрать 2048!</p>
+        </div>
+    </div>
     <div class="container">
         <header class="header">
             <div class="header__inner-1">
                 <h1 class="header__title">2048</h1>
                 <span class="header__description">Соедините плитки и наберите 2048 очков</span>
-                <a class="header__link" href="#rules"><span class="header__game-rules">Правила игры</span></a>
-                <button class="header__btn" id="new__game">Новая игра</button>
+                <button class="header__game-rules" id="game_rules">Правила игры</button>
+                <button class="header__btn" id="new_game">Новая игра</button>
             </div>
             <div class="header__inner-2">
                 <div class="header__score">
                     <span>Очки</span>
-                    <span id="score__field"></span>
+                    <span id="score_field"></span>
                 </div>
                 <div class="header__best">
                     <span>Рекорд</span>
-                    <span id="best__field"></span>
+                    <span id="best_field"></span>
                 </div>
             </div>
         </header>
         <main class="main">
-            <div class="main__field" id="game__field">
+            <div class="main__field" id="game_field">
             </div>
-            <!-- <p class="main__description"><a name="rules"></a>КАК ИГРАТЬ: Используйте клавиши-стрелки на клавиатуре, мышь
-                или сенсорное управление смартфона для перемещения плитки. Плитки с одинаковым номером сливаются в одну
-                при соприкосновении. Соединяйте их, чтобы набрать 2048!</p> -->
         </main>
     </div>
 </body>

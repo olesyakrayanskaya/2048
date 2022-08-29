@@ -1,11 +1,14 @@
 import './styles.css'
 
-const gameField = document.getElementById('game__field')
+const gameField = document.getElementById('game_field')
 const gameSize = 5
 const elements = []
-const newGame = document.getElementById('new__game')
-const scoreHTML = document.getElementById('score__field')
-const bestHTML = document.getElementById('best__field')
+const newGame = document.getElementById('new_game')
+const scoreHTML = document.getElementById('score_field')
+const bestHTML = document.getElementById('best_field')
+const gameRulesBtn = document.getElementById('game_rules')
+const howToPlay = document.getElementById('how_to_play')
+const howToPlayClose = document.getElementById('how_to_play_close')
 let score = 0
 let best = 0
 let isGameStarted = false
@@ -263,13 +266,25 @@ function winTime() {
 function resWinner() {
     const objWinner = winTime()
     let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
-    if (arrayWinners == null) {arrayWinners = []}
+    if (arrayWinners == null) { arrayWinners = [] }
     arrayWinners.push(objWinner)
     arrayWinners.sort((a, b) => a.time - b.time)
     localStorage.setItem('arrayWinners', JSON.stringify(arrayWinners))
 }
 
-newGame.addEventListener('click', newGameField)
+newGame.onclick = newGameField
+gameRulesBtn.onclick = function () {
+    howToPlay.style.display = 'block'
+}
+howToPlayClose.onclick = function () {
+    howToPlay.style.display = 'none'
+}
+window.onclick = function (event) {
+    if (event.target == howToPlay) {
+        howToPlay.style.display = "none";
+    }
+}
+
 
 
 
