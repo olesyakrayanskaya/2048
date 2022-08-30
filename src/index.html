@@ -13,14 +13,22 @@
 </head>
 
 <body>
-    <div class="play-rules" id="how_to_play">
-        <div class="play-rules__window">
-            <div class="play-rules__close" id="how_to_play_close">&times;</div>
-            <p class="play-rules__text">КАК ИГРАТЬ: Используйте клавиши-стрелки на клавиатуре, мышь
+    <div class="play-rules modal" id="how_to_play">
+        <div class="play-rules__window modal__window">
+            <div class="play-rules__close modal__close" id="how_to_play_close">&times;</div>
+            <p class="play-rules__text modal__text">КАК ИГРАТЬ: Используйте клавиши-стрелки на клавиатуре, мышь
                 или сенсорное управление смартфона для перемещения плитки. Плитки с одинаковым номером сливаются в одну
                 при соприкосновении. Соединяйте их, чтобы набрать 2048!</p>
         </div>
     </div>
+    <form class="winner__form modal" id="winner">
+        <div class="winner__window modal__window">
+            <div class="winner__close modal__close" id="winner_close">&times;</div>
+            <p class="winner__text modal__text">You are winner! Please, input your name.</p>
+            <input class="winner__name modal__input" type="text" name="name" placeholder="your name" autocomplete="off">
+            <input class="winner__send modal__input modal__input_ok" type="submit" name="send" value="ok">
+        </div>
+    </form>
     <div class="container">
         <header class="header">
             <div class="header__inner-1">

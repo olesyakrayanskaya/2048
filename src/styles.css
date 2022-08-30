@@ -32,7 +32,7 @@ button {
     cursor: pointer;
 }
 
-.play-rules {
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -43,7 +43,7 @@ button {
     height: 100vh;
 }
 
-.play-rules__window {
+.modal__window {
     margin: 20% auto;
     padding: 20px 40px;
     background-color: #6d2f52;
@@ -52,23 +52,41 @@ button {
     width: 55%;
     color:#b5b2b7;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.play-rules__text {
+.modal__text {
     margin: 0 auto;
     text-align: center;
     font-size: 16px;
 }
 
-.play-rules__close {
+.modal__close {
     position: absolute;
     top: 0;
     right: 10px;
     font-size: 30px;
 }
 
-.play-rules__close:hover, :focus {
+.modal__close:hover, :focus {
     cursor: pointer;
+}
+
+.modal__input {
+    text-align: center;
+    padding: 5px 10px;
+    margin-top: 10px;
+    outline: none;
+    border: transparent;
+    border-radius: 5px;
+    background-color: #b5b2b7;
+}
+
+.modal__input_ok {
+    align-self: flex-end;
 }
 
 .container {
