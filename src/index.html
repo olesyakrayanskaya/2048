@@ -21,12 +21,18 @@
                 при соприкосновении. Соединяйте их, чтобы набрать 2048!</p>
         </div>
     </div>
+    <div class="game-over modal" id="game_over">
+        <div class="game-over__window  modal__window">
+            <div class="game-over__close modal__close" id="game_over_close">&times;</div>
+            <p class="game-over__text modal__text">Game over!</p>
+        </div>
+    </div>
     <form class="winner__form modal" id="winner">
         <div class="winner__window modal__window">
             <div class="winner__close modal__close" id="winner_close">&times;</div>
             <p class="winner__text modal__text">You are winner! Please, input your name.</p>
-            <input class="winner__name modal__input" type="text" name="name" placeholder="your name" autocomplete="off">
-            <input class="winner__send modal__input modal__input_ok" type="submit" name="send" value="ok">
+            <input class="winner__name modal__input" id="winner_input_name" type="text" name="name" placeholder="your name" autocomplete="off">
+            <input class="winner__send modal__input modal__input_ok" id="winner_name_send" type="submit" name="send" value="ok">
         </div>
     </form>
     <div class="container">

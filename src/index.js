@@ -9,13 +9,19 @@ const bestHTML = document.getElementById('best_field')
 const gameRulesBtn = document.getElementById('game_rules')
 const howToPlay = document.getElementById('how_to_play')
 const howToPlayClose = document.getElementById('how_to_play_close')
-const winMessage = document.getElementById('win_msg')
-const winMessageClose = document.getElementById('win_msg_close')
+const winnerWindow = document.getElementById('winner')
+const winnerWindowClose = document.getElementById('winner_close')
+const winnerInputName = document.getElementById('winner_input_name')
+const winnerNameSend = document.getElementById('winner_name_send')
+const gameOverWindow = document.getElementById('game_over')
+const gameOverClose = document.getElementById('game_over_close')
 let score = 0
 let best = 0
 let isGameStarted = false
 let dateStart
+let dateFinish
 let startTime
+let finishTime
 if (Number(localStorage.getItem('bestScore')) > 0) {
     best = Number(localStorage.getItem('bestScore'))
 }
@@ -136,13 +142,16 @@ function move(get, set) {
             }
         }
         if (gameOver()) {
-            alert('Game Over!')
+            gameOverWindow.style.display = 'block'
             bestResScore()
         }
         if (win()) {
-            alert('You are win!')
+            isGameStarted = false
+            dateFinish = new Date()
+            finishTime = dateFinish.getTime()
+            winnerWindow.style.display = 'block'
+            winnerNameSend.onclick = isWinner
             bestResScore()
-            resWinner()
         }
     }
 }
@@ -237,8 +246,8 @@ function gameOver() {
             if (get(i, j) == get(i + 1, j) || get(i, j) == get(i - 1, j)) { return false }
         }
     }
-    return true
     isGameStarted = false
+    return true
 }
 
 function win() {
@@ -253,23 +262,14 @@ function bestResScore() {
     if (best < score) { localStorage.setItem('bestScore', score) }
 }
 
-function winTime() {
-    const objectWin = { name: '', time: 0 }
-    let winName = prompt('your name', 'name')
-    objectWin.name = winName
-    let dateWin = new Date()
-    let endTime = dateWin.getTime()
-    let timeWin = endTime - startTime
-    objectWin.time = timeWin
-    isGameStarted = false
-    return objectWin
-}
-
-function resWinner() {
-    const objWinner = winTime()
+function isWinner() {
+    const objectWinner = { name: '', time: 0 }
+    objectWinner.name = winnerInputName.value
+    let timeWin = finishTime - startTime
+    objectWinner.time = timeWin
     let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
     if (arrayWinners == null) { arrayWinners = [] }
-    arrayWinners.push(objWinner)
+    arrayWinners.push(objectWinner)
     arrayWinners.sort((a, b) => a.time - b.time)
     localStorage.setItem('arrayWinners', JSON.stringify(arrayWinners))
 }
@@ -281,10 +281,22 @@ gameRulesBtn.onclick = function () {
 howToPlayClose.onclick = function () {
     howToPlay.style.display = 'none'
 }
+gameOverClose.onclick = function () {
+    gameOverWindow.style.display = 'none'
+}
 window.onclick = function (event) {
     if (event.target == howToPlay) {
-        howToPlay.style.display = "none";
+        howToPlay.style.display = 'none';
     }
+    if (event.target == winnerWindow) {
+        winnerWindow.style.display = 'none';
+    }
+    if (event.target == gameOverWindow) {
+        gameOverWindow.style.display = 'none';
+    }
+}
+winnerWindowClose.onclick = function () {
+    winnerWindow.style.display = 'none'
 }
 
 
