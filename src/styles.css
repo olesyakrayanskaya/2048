@@ -305,6 +305,18 @@ button {
     }
 }
 
+@media (max-width: 600px) and (orientation: portrait) {
+
+    .rating-winner__item {
+        font-size: 14px;
+        font-weight: 600;
+        width: 100px;
+        height: 25px;
+    }
+
+}
+
+
 @media (max-width: 520px) and (orientation: portrait) {
 
     .main__field {
@@ -334,6 +346,10 @@ button {
         margin-left: 15px;
     }
 
+    .rating-winner__item {
+        width: 90px;
+    }
+
 }
 
 @media (max-width: 376px) {
@@ -354,6 +370,10 @@ button {
 
     .header__inner-2 {
         margin-top: 20px;
+    }
+
+    .rating-winner__item {
+        width: 80px;
     }
 }
 

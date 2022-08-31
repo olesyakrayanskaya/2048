@@ -267,7 +267,7 @@ function isWinner() {
     const objectWinner = { name: '', time: 0 }
     objectWinner.name = winnerInputName.value
     let timeWin = finishTime - startTime
-    objectWinner.time = timeWin
+    objectWinner.time = (timeWin/60000).toFixed(2)
     let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
     if (arrayWinners == null) { arrayWinners = [] }
     arrayWinners.push(objectWinner)
@@ -328,6 +328,7 @@ window.onclick = function (event) {
         winnersRatingModalWindow.style.display = 'none'
     }
 }
+
 
 
 
