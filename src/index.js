@@ -254,7 +254,7 @@ function gameOver() {
 function win() {
     for (let i = 0; i < gameSize; i++) {
         for (let j = 0; j < gameSize; j++) {
-            if (get(i, j) == 16) { return true }
+            if (get(i, j) == 2048) { return true }
         }
     }
 }
@@ -267,7 +267,7 @@ function isWinner() {
     const objectWinner = { name: '', time: 0 }
     objectWinner.name = winnerInputName.value
     let timeWin = finishTime - startTime
-    objectWinner.time = (timeWin/60000).toFixed(2)
+    objectWinner.time = (timeWin / 60000).toFixed(2)
     let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
     if (arrayWinners == null) { arrayWinners = [] }
     arrayWinners.push(objectWinner)
@@ -293,6 +293,136 @@ function addWinnerInRating() {
         newWinnerRatingInner.appendChild(newWinnerRatingItem)
     })
 }
+
+function swipe(el, sett) {
+    let settings = Object.assign({}, {
+        minDist: 60,
+        maxDist: 120,
+        maxTime: 700,
+        minTime: 50
+    }, sett)
+
+    if (settings.maxTime < settings.minTime) settings.maxTime = settings.minTime + 500
+    if (settings.maxTime < 100 || settings.minTime < 50) {
+        settings.maxTime = 700
+        settings.minTime = 50
+    }
+    let dir,
+        swipeType,
+        dist,
+        isMouse = false,
+        isMouseDown = false,
+        startX = 0,
+        distX = 0,
+        startY = 0,
+        distY = 0,
+        startTime = 0,
+        support = {
+            pointer: !!('PointerEvent' in window || ('msPointerEnabled' in window.navigator)),
+            touch: !!(typeof window.orientation !== 'undefined' ||
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                || 'ontouchstart' in window || navigator.msMaxTouchPoints || 'maxTouchPoints' in window.navigator > 1
+                || 'msMaxTouchPoints' in window.navigator > 1)
+        }
+    function getSupportedEvents() {
+        switch (true) {
+            case support.pointer:
+                events = {
+                    type: 'pointer',
+                    start: 'PointerDown',
+                    move: 'PointerMove',
+                    end: 'PointerUp',
+                    cancel: 'PointerCancel',
+                    leave: 'PointerLeave'
+                }
+                break
+            case support.touch:
+                events = {
+                    type: 'touch',
+                    start: 'touchstart',
+                    move: 'touchmove',
+                    end: 'touchend',
+                    cancel: 'touchcancel'
+                }
+                break
+            default:
+                events = {
+                    type: 'mouse',
+                    start: 'mousedown',
+                    move: 'mousemove',
+                    end: 'mouseup',
+                    leave: 'mouseleave'
+                }
+                break
+        }
+        return events
+    }
+    function eventsUnify(e) {
+        return e.changedTouches ? e.changedTouches[0] : e
+    }
+    function checkStart(e) {
+        let event = eventsUnify(e)
+        if (support.touch && typeof e.touches !== 'undefined' && e.touches.length !== 1) return
+        dir = 'none'
+        swipeType = 'none'
+        dist = 0
+        startX = event.pageX
+        startY = event.pageY
+        startTime = new Date().getTime()
+        if (isMouse) isMouseDown = true
+    }
+    function checkMove(e) {
+        if (isMouse && !isMouseDown) return
+        let event = eventsUnify(e)
+        distX = event.pageX - startX
+        distY = event.pageY - startY
+        if (Math.abs(distX) > Math.abs(distY)) dir = (distX < 0) ? 'left' : 'right'
+        else dir = (distY < 0) ? 'up' : 'down'
+    }
+    function checkEnd(e) {
+        if (isMouse && !isMouseDown) {
+            isMouseDown = false
+            return
+        }
+        let endTime = new Date().getTime()
+        let time = endTime - startTime
+        if (time >= settings.minTime && time <= settings.maxTime) {
+            if (Math.abs(distX) >= settings.minDist && Math.abs(distY) <= settings.maxDist) {
+                swipeType = dir
+            } else if (Math.abs(distY) >= settings.minDist && Math.abs(distX) <= settings.maxDist) {
+                swipeType = dir
+            }
+        }
+        dist = (dir === 'left' || dir === 'right') ? Math.abs(distX) : Math.abs(distY)
+        if (swipeType !== 'none' && dist >= settings.minDist) {
+            let swipeEvent = new CustomEvent('swipe', {
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                    full: e,
+                    dir: swipeType,
+                    dist: dist,
+                    time: time
+                }
+            })
+            el.dispatchEvent(swipeEvent)
+        }
+        let events = getSupportedEvents()
+        if ((support.pointer && !support.touch) || events.type === 'mouse') isMouse = true
+        el.addEventListener(events.start, checkStart);
+        el.addEventListener(events.move, checkMove);
+        el.addEventListener(events.end, checkEnd);
+        if (support.pointer && support.touch) {
+            el.addEventListener('lostpointercapture', checkEnd);
+        }
+    }
+
+}
+
+swipe(gameField, { maxTime: 1000, minTime: 100, maxDist: 250,  minDist: 60 })
+gameField.addEventListener('swipe', function() {
+    console.log('swipe')
+  })
 
 newGame.onclick = newGameField
 gameRulesBtn.onclick = function () {
@@ -328,7 +458,6 @@ window.onclick = function (event) {
         winnersRatingModalWindow.style.display = 'none'
     }
 }
-
 
 
 
