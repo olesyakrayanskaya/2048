@@ -7,6 +7,11 @@ const newGame = document.getElementById('new_game')
 const scoreHTML = document.getElementById('score_field')
 const bestHTML = document.getElementById('best_field')
 const gameRulesBtn = document.getElementById('game_rules')
+const winnersRatingBtn = document.getElementById('winners_rating_btn')
+const winnersRatingModalWindow = document.getElementById('rating_winners_modal_window')
+const winnersRatingWindow = document.getElementById('rating_winners_window')
+const winnerRatingTable = document.getElementById('rating_winner_table')
+const winnersRatingTableClose = document.getElementById('rating_winners_close')
 const howToPlay = document.getElementById('how_to_play')
 const howToPlayClose = document.getElementById('how_to_play_close')
 const winnerWindow = document.getElementById('winner')
@@ -18,8 +23,6 @@ const gameOverClose = document.getElementById('game_over_close')
 let score = 0
 let best = 0
 let isGameStarted = false
-let dateStart
-let dateFinish
 let startTime
 let finishTime
 if (Number(localStorage.getItem('bestScore')) > 0) {
@@ -147,8 +150,7 @@ function move(get, set) {
         }
         if (win()) {
             isGameStarted = false
-            dateFinish = new Date()
-            finishTime = dateFinish.getTime()
+            finishTime = Date.now()
             winnerWindow.style.display = 'block'
             winnerNameSend.onclick = isWinner
             bestResScore()
@@ -226,8 +228,7 @@ function newGameField() {
     generateNewItem()
     scoreHTML.innerHTML = 0
     isGameStarted = true
-    dateStart = new Date()
-    startTime = dateStart.getTime()
+    startTime = Date.now()
 }
 
 function gameOver() {
@@ -274,6 +275,25 @@ function isWinner() {
     localStorage.setItem('arrayWinners', JSON.stringify(arrayWinners))
 }
 
+function addWinnerInRating() {
+
+    let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
+    if (arrayWinners == null) { arrayWinners = [] }
+    arrayWinners.forEach(e => {
+        const newWinnerRatingInner = document.createElement('div')
+        newWinnerRatingInner.className = 'rating-winner__inner'
+        winnersRatingWindow.appendChild(newWinnerRatingInner)
+        let newWinnerRatingItem = document.createElement('div')
+        newWinnerRatingItem.className = 'rating-winner__item name'
+        newWinnerRatingItem.innerHTML = e.name
+        newWinnerRatingInner.appendChild(newWinnerRatingItem)
+        newWinnerRatingItem = document.createElement('div')
+        newWinnerRatingItem.className = 'rating-winner__item time'
+        newWinnerRatingItem.innerHTML = e.time
+        newWinnerRatingInner.appendChild(newWinnerRatingItem)
+    })
+}
+
 newGame.onclick = newGameField
 gameRulesBtn.onclick = function () {
     howToPlay.style.display = 'block'
@@ -283,6 +303,16 @@ howToPlayClose.onclick = function () {
 }
 gameOverClose.onclick = function () {
     gameOverWindow.style.display = 'none'
+}
+winnersRatingBtn.onclick = function () {
+    addWinnerInRating()
+    winnersRatingModalWindow.style.display = 'block'
+}
+winnersRatingTableClose.onclick = function () {
+    winnersRatingModalWindow.style.display = 'none'
+}
+winnerWindowClose.onclick = function () {
+    winnerWindow.style.display = 'none'
 }
 window.onclick = function (event) {
     if (event.target == howToPlay) {
@@ -294,10 +324,12 @@ window.onclick = function (event) {
     if (event.target == gameOverWindow) {
         gameOverWindow.style.display = 'none';
     }
+    if (event.target == winnersRatingModalWindow) {
+        winnersRatingModalWindow.style.display = 'none'
+    }
 }
-winnerWindowClose.onclick = function () {
-    winnerWindow.style.display = 'none'
-}
+
+
 
 
 

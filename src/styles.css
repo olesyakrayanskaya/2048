@@ -28,7 +28,7 @@ a:hover {
 }
 
 button {
-    outline: transparent;
+    outline: none;
     cursor: pointer;
 }
 
@@ -38,7 +38,7 @@ button {
     top: 0;
     left: 0;
     z-index: 1;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.9);
     width: 100%;
     height: 100vh;
 }
@@ -93,6 +93,42 @@ button {
     cursor: pointer;
 }
 
+.rating-winners {
+    overflow: auto;
+}
+
+.rating-winners__window {
+    margin: 5% auto;
+}
+
+.rating-winner__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.rating-winner__item {
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #b5b2b7;
+    color: #6d2f52;
+    font-size: 18px;
+    font-weight: 600;
+    width: 150px;
+    height: 30px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.first {
+    background-color: #a583bc;
+    color: #4b1835;
+    font-weight: 700;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -124,6 +160,7 @@ button {
     justify-content: center;
     align-items: center;
     margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 .header__description {
@@ -138,7 +175,7 @@ button {
     margin-bottom: 40px;
 }
 
-.header__game-rules {
+.btn_text_underlined {
     margin-top: 10px;
     font-weight: 600;
     font-size: 16px;
@@ -175,12 +212,12 @@ button {
     background-color: #a77070;
     font-size: 18px;
     font-weight: 600;
-    transition: background-color 1s, color 1s;
     max-width: 300px;
     margin-top: 30px;
 }
 
 .header__btn:hover {
+    transition: background-color 1s, color 1s;
     background-color: #913a6a;
     color: #faf8ef;
 }
