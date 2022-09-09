@@ -1,5 +1,5 @@
 import './styles.css'
-
+import { swipe } from './swipe'
 const gameField = document.getElementById('game_field')
 const gameSize = 5
 const elements = []
@@ -25,6 +25,8 @@ let best = 0
 let isGameStarted = false
 let startTime
 let finishTime
+let somethingChanged = false
+
 if (Number(localStorage.getItem('bestScore')) > 0) {
     best = Number(localStorage.getItem('bestScore'))
 }
@@ -50,18 +52,27 @@ for (let i = 0; i < gameSize; i++) {
 }
 
 document.addEventListener('keydown', function (event) {
-    if (isGameStarted) {
-        switch (event.code) {
+    moveAll(event.code)
 
+})
+
+function moveAll(direction) {
+    somethingChanged = false
+    if (isGameStarted) {
+        switch (direction) {
             case 'ArrowUp':
+            case 'up':
                 moveUp()
                 break
             case 'ArrowDown':
+            case 'down':
                 moveDown()
                 break
             case 'ArrowRight':
+            case 'right':
                 moveRight()
                 break
+            case 'left':
             case 'ArrowLeft':
                 moveLeft()
                 break
@@ -71,9 +82,9 @@ document.addEventListener('keydown', function (event) {
 
         }
 
-        setTimeout(generateNewItem, 200)
+        if (somethingChanged) { setTimeout(generateNewItem, 200) }
     }
-})
+}
 
 function generateNewItem() {
 
@@ -167,7 +178,7 @@ function getLeft(i, j) {
 }
 
 function setLeft(i, j, value) {
-    elements[i][j].innerHTML = value
+    set(i, j, value)
 }
 
 
@@ -180,7 +191,7 @@ function getRight(i, j) {
 }
 
 function setRight(i, j, value) {
-    elements[i][gameSize - j - 1].innerHTML = value
+    set(i, gameSize - j - 1, value)
 }
 
 
@@ -193,7 +204,7 @@ function getUp(i, j) {
 }
 
 function setUp(i, j, value) {
-    elements[j][i].innerHTML = value
+    set(j, i, value)
 }
 
 
@@ -206,16 +217,28 @@ function getDown(i, j) {
 }
 
 function setDown(i, j, value) {
-    elements[gameSize - j - 1][i].innerHTML = value
+    set(gameSize - j - 1, i, value)
 }
 
 function set(i, j, value) {
+    removeClassFieldItem(i, j)
     elements[i][j].innerHTML = value
+    addClassFieldItem(i, j, value)  
+    somethingChanged = true
     return elements
 }
 
 function get(i, j) {
     return elements[i][j].innerHTML
+}
+
+function removeClassFieldItem(i, j) {
+    let itemValue = get(i, j)
+    elements[i][j].classList.remove('field__item_' + itemValue)
+}
+
+function addClassFieldItem(i, j, value) {
+    elements[i][j].classList.add('field__item_' + value)
 }
 
 function newGameField() {
@@ -327,6 +350,12 @@ window.onclick = function (event) {
     if (event.target == winnersRatingModalWindow) {
         winnersRatingModalWindow.style.display = 'none'
     }
+}
+
+swipe(gameField, { maxTime: 1000, minTime: 60, maxDist: 250, minDist: 40 }, moveAll)
+
+gameField.onmousedown = gameField.onselectstart = function () {
+    return false
 }
 
 

@@ -1,4 +1,10 @@
-let swipe = function (el, settings) {
+// let moveUp, moveDown, moveLeft, moveRight
+
+export function swipe(el, settings, moveAll) {
+    // this.moveUp = moveUp
+    // this.moveDown = moveDown
+    // this.moveLeft = moveLeft
+    // this.moveRight = moveRight
 
     let sett = Object.assign({}, {
         minDist: 60,
@@ -124,6 +130,27 @@ let swipe = function (el, settings) {
             })
             el.dispatchEvent(swipeEvent)
         }
+
+        moveAll(dir)
+        // switch (dir) {
+
+        //     case 'up':
+        //         moveUp()
+        //         break
+        //     case 'down':
+        //         moveDown()
+        //         break
+        //     case 'right':
+        //         moveRight()
+        //         break
+        //     case 'left':
+        //         moveLeft()
+        //         break
+
+        //     default:
+        //         return
+
+        // }
     }
 
     let events = getSupportedEvents()
@@ -137,3 +164,6 @@ let swipe = function (el, settings) {
         el.addEventListener('lostpointercapture', checkEnd)
     }
 }
+
+
+
