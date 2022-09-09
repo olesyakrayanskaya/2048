@@ -381,7 +381,7 @@ button {
     }
 }
 
-@media  (orientation: landscape) and (max-width: 920px) {
+@media (orientation: landscape) and (max-width: 920px) {
     .container {
         padding: 0;
     }
@@ -414,8 +414,8 @@ button {
         height: 390px;
         padding: 12px 5px;
         margin: 5px 0 0;
-    } 
-    
+    }
+
     .field__item {
         font-size: 50px;
     }
@@ -477,6 +477,38 @@ button {
 
     .main__field {
         margin-left: auto;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 700px) {
+    .main__field {
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(5, 50px);
+        width: 305px;
+        height: 305px;
+        padding: 6px;
+        margin: 15px 0 0;
+    }
+
+    .field__item {
+        font-size: 50px;
+    }
+
+    .field__item_16,
+    .field__item_32,
+    .field__item_64 {
+        font-size: 45px;
+    }
+
+    .field__item_128,
+    .field__item_256,
+    .field__item_512 {
+        font-size: 30px;
+    }
+
+    .field__item_1024,
+    .field__item_2048 {
+        font-size: 28px;
     }
 }
 
