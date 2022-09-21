@@ -1,10 +1,4 @@
-// let moveUp, moveDown, moveLeft, moveRight
-
 export function swipe(el, settings, moveAll) {
-    // this.moveUp = moveUp
-    // this.moveDown = moveDown
-    // this.moveLeft = moveLeft
-    // this.moveRight = moveRight
 
     let sett = Object.assign({}, {
         minDist: 60,
@@ -132,25 +126,6 @@ export function swipe(el, settings, moveAll) {
         }
 
         moveAll(dir)
-        // switch (dir) {
-
-        //     case 'up':
-        //         moveUp()
-        //         break
-        //     case 'down':
-        //         moveDown()
-        //         break
-        //     case 'right':
-        //         moveRight()
-        //         break
-        //     case 'left':
-        //         moveLeft()
-        //         break
-
-        //     default:
-        //         return
-
-        // }
     }
 
     let events = getSupportedEvents()

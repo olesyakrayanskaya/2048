@@ -3,23 +3,14 @@ import { swipe } from './swipe'
 const gameField = document.getElementById('game_field')
 const gameSize = 5
 const elements = []
-const newGame = document.getElementById('new_game')
 const scoreHTML = document.getElementById('score_field')
 const bestHTML = document.getElementById('best_field')
-const gameRulesBtn = document.getElementById('game_rules')
-const winnersRatingBtn = document.getElementById('winners_rating_btn')
 const winnersRatingModalWindow = document.getElementById('rating_winners_modal_window')
-const winnersRatingWindow = document.getElementById('rating_winners_window')
-const winnerRatingTable = document.getElementById('rating_winner_table')
-const winnersRatingTableClose = document.getElementById('rating_winners_close')
 const howToPlay = document.getElementById('how_to_play')
 const howToPlayClose = document.getElementById('how_to_play_close')
 const winnerWindow = document.getElementById('winner')
 const winnerWindowClose = document.getElementById('winner_close')
-const winnerInputName = document.getElementById('winner_input_name')
-const winnerNameSend = document.getElementById('winner_name_send')
 const gameOverWindow = document.getElementById('game_over')
-const gameOverClose = document.getElementById('game_over_close')
 let score = 0
 let best = 0
 let isGameStarted = false
@@ -163,7 +154,7 @@ function move(get, set) {
             isGameStarted = false
             finishTime = Date.now()
             winnerWindow.style.display = 'block'
-            winnerNameSend.onclick = isWinner
+            document.getElementById('winner_name_send').onclick = isWinner
             bestResScore()
         }
     }
@@ -288,7 +279,7 @@ function bestResScore() {
 
 function isWinner() {
     const objectWinner = { name: '', time: 0 }
-    objectWinner.name = winnerInputName.value
+    objectWinner.name = document.getElementById('winner_input_name').value
     let timeWin = finishTime - startTime
     objectWinner.time = (timeWin / 60000).toFixed(2)
     let arrayWinners = JSON.parse(localStorage.getItem('arrayWinners'))
@@ -305,7 +296,7 @@ function addWinnerInRating() {
     arrayWinners.forEach(e => {
         const newWinnerRatingInner = document.createElement('div')
         newWinnerRatingInner.className = 'rating-winner__inner'
-        winnersRatingWindow.appendChild(newWinnerRatingInner)
+        document.getElementById('rating_winners_window').appendChild(newWinnerRatingInner)
         let newWinnerRatingItem = document.createElement('div')
         newWinnerRatingItem.className = 'rating-winner__item name'
         newWinnerRatingItem.innerHTML = e.name
@@ -317,21 +308,21 @@ function addWinnerInRating() {
     })
 }
 
-newGame.onclick = newGameField
-gameRulesBtn.onclick = function () {
+document.getElementById('new_game').onclick = newGameField
+document.getElementById('game_rules').onclick = function () {
     howToPlay.style.display = 'block'
 }
 howToPlayClose.onclick = function () {
     howToPlay.style.display = 'none'
 }
-gameOverClose.onclick = function () {
+document.getElementById('game_over_close').onclick = function () {
     gameOverWindow.style.display = 'none'
 }
-winnersRatingBtn.onclick = function () {
+document.getElementById('winners_rating_btn').onclick = function () {
     addWinnerInRating()
     winnersRatingModalWindow.style.display = 'block'
 }
-winnersRatingTableClose.onclick = function () {
+document.getElementById('rating_winners_close').onclick = function () {
     winnersRatingModalWindow.style.display = 'none'
 }
 winnerWindowClose.onclick = function () {
