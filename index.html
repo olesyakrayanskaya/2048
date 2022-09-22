@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+<script defer src="bundle.js"></script></head>
+
+<body>
+    <div class="rating-winners modal" id="rating_winners_modal_window">
+        <div class="rating-winners__window modal__window" id="rating_winners_window">
+            <h3 class="rating-winner__title">Рейтинг победителей</h3>
+            <div class="rating-winners__close modal__close" id="rating_winners_close">&times;</div>
+            <div class="rating-winner__inner" id="rating_winner_table">
+                <div class="rating-winner__item name first">имя</div>
+                <div class="rating-winner__item time first">время мин</div>
+            </div>
+        </div>
+    </div>
+    <div class="play-rules modal" id="how_to_play">
+        <div class="play-rules__window modal__window">
+            <div class="play-rules__close modal__close" id="how_to_play_close">&times;</div>
+            <p class="play-rules__text modal__text">КАК ИГРАТЬ: Используйте клавиши-стрелки на клавиатуре, мышь
+                или сенсорное управление смартфона для перемещения плитки. Плитки с одинаковым номером сливаются в одну
+                при соприкосновении. Соединяйте их, чтобы набрать 2048!</p>
+        </div>
+    </div>
+    <div class="game-over modal" id="game_over">
+        <div class="game-over__window  modal__window">
+            <div class="game-over__close modal__close" id="game_over_close">&times;</div>
+            <p class="game-over__text modal__text">Game over!</p>
+        </div>
+    </div>
+    <form class="winner__form modal" id="winner">
+        <div class="winner__window modal__window">
+            <div class="winner__close modal__close" id="winner_close">&times;</div>
+            <p class="winner__text modal__text">You are winner! Please, input your name.</p>
+            <input class="winner__name modal__input" id="winner_input_name" type="text" name="name"
+                placeholder="your name" autocomplete="off" value="name" maxlength="14">
+            <input class="winner__send modal__input modal__input_ok" id="winner_name_send" type="submit" name="send"
+                value="ok">
+        </div>
+    </form>
+    <div class="container">
+        <header class="header">
+            <div class="header__inner-1">
+                <h1 class="header__title">2048</h1>
+                <span class="header__description">Соедините плитки и наберите 2048 очков</span>
+                <button class="header__game-rules btn_text_underlined" id="game_rules">Правила игры</button>
+                <button class="header__btn" id="new_game">Новая игра</button>
+            </div>
+            <div class="header__inner-2">
+                <div class="header__score">
+                    <span>Очки</span>
+                    <span id="score_field"></span>
+                </div>
+                <div class="header__best">
+                    <span>Рекорд</span>
+                    <span id="best_field"></span>
+                </div>
+            </div>
+            <button class="header__winner-rating btn_text_underlined" id="winners_rating_btn">Рейтинг
+                победителей</button>
+        </header>
+        <main class="main">
+            <div class="main__field" id="game_field"></div>
+        </main>
+    </div>
+</body>
+
+</html>
